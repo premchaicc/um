@@ -1,5 +1,5 @@
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);let reservation=false,rental=false;
-function go(id){$$('.screen').forEach(x=>x.classList.remove('active'));$('#'+id).classList.add('active');location.hash=id;window.scrollTo(0,0)}
+function go(id){const overlay=$('#modal');if(overlay)overlay.hidden=true;$$('.screen').forEach(x=>x.classList.remove('active'));$('#'+id).classList.add('active');location.hash=id;window.scrollTo(0,0)}
 $$('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
 function toast(text){const t=$('#toast');t.textContent=text;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800)}
 function modal(title,content){$('#modalTitle').textContent=title;$('#modalContent').innerHTML=content;$('#modal').hidden=false}$('#closeModal').onclick=()=>$('#modal').hidden=true;
