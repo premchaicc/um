@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#63838b"><title>RǪM — Smart Umbrella Network</title>
+  <link rel="stylesheet" href="app.css?v=20260728"><link rel="stylesheet" href="route.css?v=20260728a1">
+</head>
+<body>
+  <div id="weatherBgA" class="weather-bg is-visible" aria-hidden="true"></div><div id="weatherBgB" class="weather-bg" aria-hidden="true"></div>
+  <a class="skip" href="#main">ข้ามไปยังเนื้อหาหลัก</a>
+  <header class="top"><a href="#home" class="brand" aria-label="RǪM หน้าหลัก"><b>RǪM</b><span>SMART UMBRELLA</span></a><div class="demo-pill">● DEMO DATA</div><div id="weatherScene" class="weather-scene" aria-live="polite">☀ แดดอ่อน · demo weather</div><button id="theme" class="icon-btn" aria-label="สลับโหมดสี">◐</button></header>
+  <main id="main">
+    <section id="home" class="screen home active">
+      <div class="hero"><p class="eyebrow">BANGKOK · WEATHER-READY MOBILITY</p><h1>ร่มพร้อม<br><em>ทุกการเดินทาง</em></h1><p>ยืมที่นี่ คืนที่ไหนก็ได้ — ระบบอ่านรหัสร่มอัตโนมัติ ไม่ต้องสแกน QR ตอนคืน</p></div>
+      <div class="module-grid" aria-label="เลือกโมดูลเดโม">
+        <a class="module-card user-card" href="#user" data-go="user"><span class="card-icon">☂</span><strong>User Mobile App</strong><small>สมัคร · จอง · ยืม · ดูใบเสร็จ</small><i>เปิดแอปผู้ใช้ →</i></a>
+        <a class="module-card kiosk-card" href="#kiosk" data-go="kiosk"><span class="card-icon">▣</span><strong>Kiosk Touchscreen</strong><small>9:16 · QR pickup · Drop-and-go return</small><i>เปิดตู้บริการ →</i></a>
+        <a class="module-card admin-card" href="#admin" data-go="admin"><span class="card-icon">⌘</span><strong>Operations Dashboard</strong><small>ติดตามร่ม · คืนร่ม · Rebalance</small><i>เปิดศูนย์ควบคุม →</i></a>
+      </div>
+      <section class="scenario-lab" aria-labelledby="scenarioTitle">
+        <div class="scenario-head"><div><p class="eyebrow">LIVE INVESTOR DEMO</p><h2 id="scenarioTitle">จำลองเหตุการณ์ทั้งระบบ</h2></div><span id="scenarioStatus" class="scenario-status">● พร้อมเริ่ม</span></div>
+        <p class="muted">เหตุการณ์เดียวจะอัปเดต User App, Kiosk และ Operations Dashboard พร้อมกัน</p>
+        <div class="scenario-actions"><button data-scenario="rain">🌦 ฝนกำลังเข้า</button><button data-scenario="rush">⚡ Rush hour</button><button data-scenario="return">↵ คืนร่มสำเร็จ</button><button id="autoDemo">▶ Auto demo</button><button data-scenario="reset" class="scenario-reset">↺ Reset</button></div>
+        <div class="scenario-progress"><i id="scenarioProgress"></i></div>
+        <div id="scenarioTimeline" class="scenario-timeline" aria-live="polite"><span><b>WAITING</b>เลือก scenario เพื่อเริ่มการจำลอง</span></div>
+      </section>
+      <section class="promise"><span>♿ Accessible</span><span>◉ Privacy-first</span><span>⌁ Mock payment only</span><span>☁ Smart city open data</span></section>
+    </section>
+
+    <section id="user" class="screen app-shell">
+      <aside class="phone-nav"><a class="back" href="#home" data-go="home" aria-label="กลับหน้าหลัก">←</a><b id="mobileViewTitle">RǪM</b><span class="member">MEMBER</span></aside>
+      <div class="mobile-content">
+        <div class="user-view active" data-user-view="home">
+          <div class="weather"><span>อโศก · Exit 4</span><b id="userWeatherEta">ฝนใน 12 นาที</b><small>29°C · ความชื้น 82% · ความมั่นใจ 85%</small></div>
+          <h2>สวัสดี, คุณทอย น่ารัก <span>☀</span></h2><p class="muted">พร้อมเดินทางแบบไม่กลัวฝน</p>
+          <section class="balance"><span>RǪM Wallet <button id="topup" class="plain">＋ เติมเงิน</button></span><strong id="userWalletBalance">฿120.00</strong><small>Mock balance · Daily Pass active</small></section>
+          <section class="alert"><b>☂ แนะนำสำหรับตอนนี้</b><span>Standard สีฟ้า · ฟรี 30 นาทีแรก</span><button id="reserveBtn">เลือกร่มและจอง →</button></section>
+          <section><div class="section-title"><h3>สถานีใกล้คุณ</h3><button class="plain" data-open-user-view="stations">ดูแผนที่</button></div><div class="station"><span class="station-dot">A</span><div><b id="homeStationName">อโศก · Exit 4</b><small id="stationStock">ตู้ A-04 · พร้อมยืม 18 คัน</small></div><strong>2 นาที</strong></div></section>
+          <section id="userState" class="state-card"><b>เริ่มเดโมได้ทันที</b><p>Payment และ Bank integration เป็นข้อมูลจำลอง</p></section>
+        </div>
+
+        <div class="user-view" data-user-view="stations">
+          <div class="view-heading"><span>สถานีใกล้คุณ</span><h2>เลือกรับร่มได้ทุกจุด</h2><p>ตำแหน่งเป็นข้อมูลจำลองสำหรับ Investor Demo</p></div>
+          <div class="station-map" aria-label="แผนที่สถานีจำลอง"><span class="map-road road-a"></span><span class="map-road road-b"></span><button class="map-pin active" data-station-pin="asok" aria-label="สถานีอโศก">A<small>18</small></button><button class="map-pin pin-siam" data-station-pin="siam" aria-label="สถานีสยาม">S<small>11</small></button><button class="map-pin pin-nana" data-station-pin="nana" aria-label="สถานีนานา">N<small>7</small></button><div class="map-you">●<span>คุณอยู่ที่นี่</span></div></div>
+          <div class="station-list">
+            <button class="station-card selected" data-station-select="asok"><span class="station-dot">A</span><span><b>อโศก · Exit 4</b><small>ตู้ A-04 · เปิด 24 ชม.</small></span><strong>18 คัน<small>2 นาที</small></strong></button>
+            <button class="station-card" data-station-select="siam"><span class="station-dot teal">S</span><span><b>สยาม · ทางออก 2</b><small>ตู้ S-02 · เปิดถึง 23:00</small></span><strong>11 คัน<small>8 นาที</small></strong></button>
+            <button class="station-card" data-station-select="nana"><span class="station-dot navy">N</span><span><b>นานา · Exit 1</b><small>ตู้ N-01 · เปิด 24 ชม.</small></span><strong>7 คัน<small>11 นาที</small></strong></button>
+          </div>
+          <button id="reserveAtStation" class="view-primary">เลือกอโศกและดูร่ม <span>→</span></button>
+        </div>
+
+        <div class="user-view" data-user-view="wallet">
+          <div class="view-heading"><span>RǪM Wallet</span><h2>฿<b id="walletBalance">120.00</b></h2><p>พร้อมใช้ทันที · Daily Pass active</p></div>
+          <section class="wallet-card"><span>DAILY PASS</span><b>ฟรี 30 นาทีแรก</b><small>ต่อด้วย ฿20 / ชั่วโมง · ต่ออายุอัตโนมัติ 08:00</small><i>ACTIVE</i></section>
+          <div class="quick-topup"><div class="section-title"><h3>เติมเงินด่วน</h3><small>Mock payment</small></div><div><button data-topup-amount="100">+฿100</button><button data-topup-amount="200">+฿200</button><button data-topup-amount="500">+฿500</button></div></div>
+          <section class="transactions"><div class="section-title"><h3>รายการล่าสุด</h3><button class="plain" data-toast="แสดงรายการธุรกรรมจำลองทั้งหมด">ดูทั้งหมด</button></div><div><span>☂</span><p><b>คืนร่ม · สยาม</b><small>วันนี้ 14:31</small></p><strong>-฿20</strong></div><div><span>＋</span><p><b>เติมเงิน Wallet</b><small>เมื่อวาน 09:12</small></p><strong class="credit">+฿100</strong></div></section>
+        </div>
+
+        <div class="user-view" data-user-view="profile">
+          <div class="profile-hero"><span>ม</span><h2>มินตรา</h2><p>RǪM Member · ID 0142</p></div>
+          <section class="profile-stats"><span><b>12</b><small>ครั้งที่ยืม</small></span><span><b>4.8</b><small>กก. CO₂ ลดลง</small></span><span><b>100%</b><small>คืนตรงเวลา</small></span></section>
+          <section class="settings-list"><h3>ตั้งค่าบัญชี</h3><button data-profile-setting="weather"><span>🌦</span><p><b>แจ้งเตือนสภาพอากาศ</b><small>เตือนก่อนฝนตก 15 นาที</small></p><i class="toggle on"></i></button><button data-profile-setting="privacy"><span>⌾</span><p><b>Location privacy</b><small>ใช้ตำแหน่งเฉพาะขณะเปิดแอป</small></p><i class="toggle on"></i></button><button data-profile-setting="language"><span>文</span><p><b>ภาษา</b><small>ไทย · TH</small></p><strong>›</strong></button><button data-profile-setting="support"><span>?</span><p><b>ช่วยเหลือและฉุกเฉิน</b><small>ติดต่อ RǪM Care</small></p><strong>›</strong></button></section>
+        </div>
+      </div>
+      <nav class="bottom-nav" aria-label="เมนูผู้ใช้"><button class="selected" data-bottom-action="home">⌂<small>หน้าหลัก</small></button><button data-bottom-action="stations">⌕<small>สถานี</small></button><button data-bottom-action="wallet">▱<small>Wallet</small></button><button data-bottom-action="profile">☺<small>โปรไฟล์</small></button></nav>
+    </section>
+
+    <section id="kiosk" class="screen kiosk-page">
+      <div class="kiosk-machine">
+        <div class="machine-brand"><a class="back" href="#home" data-go="home" aria-label="กลับหน้าหลัก">←</a><b>RǪM</b><span>อโศก · K-01</span><i>● ONLINE</i></div>
+        <div class="kiosk-screen">
+          <div class="screen-status"><span>☁ 29° · ฝนใน 12 นาที</span><b id="clock">14:36</b></div>
+          <section class="ad-stage" aria-label="โฆษณาและโปรโมชั่น">
+            <div class="ad-slide ad-rain active" data-ad-panel="0"><span>WEATHER READY</span><h2>ฝนมา<br>เราพร้อม ☂</h2><p>ยืม RǪM ฟรี 30 นาทีแรก<br>คืนได้ทุกสถานี</p><i>อโศก · พร้อมใช้ 18 คัน</i></div>
+            <div class="ad-slide ad-pass" data-ad-panel="1"><span>RǪM DAILY PASS</span><h2>เดินทางทั้งวัน<br><em>ไม่กลัวฝน</em></h2><p>สมัคร Daily Pass วันนี้<br>รับสิทธิ์ Priority pickup</p><i>เริ่มต้น ฿49 / วัน</i></div>
+            <div class="ad-slide ad-green" data-ad-panel="2"><span>BANGKOK GOES GREEN</span><h2>ทุกการยืม<br>ช่วยลด CO₂</h2><p>ชาว RǪM ลดพลาสติกใช้ครั้งเดียว<br>แล้วกว่า 18,420 ชิ้น</p><i>ร่วมเดินทางอย่างยั่งยืน</i></div>
+            <div class="ad-controls"><div><button data-ad-slide="0" class="active" aria-label="โฆษณา 1"></button><button data-ad-slide="1" aria-label="โฆษณา 2"></button><button data-ad-slide="2" aria-label="โฆษณา 3"></button></div><button id="adPause" aria-label="หยุดโฆษณา">Ⅱ</button><button id="adNext" aria-label="โฆษณาถัดไป">›</button></div>
+          </section>
+          <div id="kioskActionPanel" class="kiosk-action-panel">
+            <div class="kiosk-action-head"><span><small>ร่มพร้อมใช้</small><b id="kioskStock">18</b></span><p><b id="kioskActionTitle">พร้อมให้บริการ</b><small id="kioskActionText">สแกน QR จากแอป หรือคืนร่มได้ทันที</small></p></div>
+            <div id="kioskProgress" class="kiosk-progress"><i></i></div>
+            <div class="kiosk-actions"><button id="scanBtn" class="scan">▣ สแกน QR รับร่ม</button><button id="returnBtn" class="return">↵ คืนร่ม</button></div>
+            <button id="collectBtn" class="collect-btn" hidden>เปิดช่อง 07 รับร่ม <span>→</span></button>
+          </div>
+          <div class="hardware-strip"><span><i>◉</i><b>NFC</b><small>แตะบัตร</small></span><span class="scanner"><i>⌗</i><b>QR SCANNER</b><small>สแกนตรงนี้</small></span><span><i>▤</i><b>RECEIPT</b><small>e-Receipt</small></span></div>
+        </div>
+        <div class="machine-base"><span>◉ Anonymous analytics</span><span>24/7 RǪM Care · 02-000-0142</span></div>
+      </div>
+
+      <aside class="dispenser-module" aria-label="โมดูลจ่ายและรับคืนร่ม">
+        <div class="dispenser-head"><span><small>UMBRELLA MODULE</small><b>ตู้จ่ายร่ม A-04</b></span><i>● READY</i></div>
+        <div class="slot-grid">
+          <button class="umbrella-slot occupied" data-slot="01"><small>01</small><span>☂</span><i>READY</i></button>
+          <button class="umbrella-slot occupied" data-slot="02"><small>02</small><span>☂</span><i>READY</i></button>
+          <button class="umbrella-slot occupied coral" data-slot="03"><small>03</small><span>☂</span><i>LIMITED</i></button>
+          <button class="umbrella-slot empty" data-slot="04"><small>04</small><span>—</span><i>EMPTY</i></button>
+          <button class="umbrella-slot occupied navy" data-slot="05"><small>05</small><span>☂</span><i>PREMIUM</i></button>
+          <button class="umbrella-slot occupied" data-slot="06"><small>06</small><span>☂</span><i>READY</i></button>
+          <button id="slot07" class="umbrella-slot occupied assigned" data-slot="07"><small>07</small><span>☂</span><i>ASSIGNED</i></button>
+          <button class="umbrella-slot occupied" data-slot="08"><small>08</small><span>☂</span><i>READY</i></button>
+        </div>
+        <div id="dispenseBay" class="dispense-bay"><div class="bay-door"><span>☂</span><b>ช่องรับร่ม</b><small id="bayStatus">รอคำสั่งจากหน้าจอ</small></div><div class="bay-light"></div></div>
+        <button id="returnBay" class="return-bay"><span>↵</span><p><b>ช่องรับคืนร่ม</b><small>ใส่ร่มจนสุด · Sensor จะยืนยันอัตโนมัติ</small></p><i>›</i></button>
+        <div class="module-sensors"><span><i></i> RFID</span><span><i></i> Presence</span><span><i></i> Door lock</span></div>
+      </aside>
+
+      <aside class="kiosk-controls"><div><h3>Live device log</h3><p>สถานะจากอุปกรณ์จำลอง</p></div><div class="demo-shortcuts"><button data-action="assign">Assign ID</button><button data-action="scan">Scan QR</button><button data-action="release">Release</button><button data-action="return">Detect return</button><button data-action="confirm">Confirm sensor</button><button data-action="offline">Offline sync</button></div><div id="eventLog" class="event-log" aria-live="polite">SYSTEM READY<br><small>รอเริ่ม Demo flow…</small></div></aside>
+    </section>
+
+    <section id="admin" class="screen dashboard">
+      <aside class="side"><a class="back" href="#home" data-go="home">← กลับหน้า Demo</a><b class="side-brand">RǪM<span>OPERATIONS</span></b><button class="nav-active" data-admin-action="overview">▦ ภาพรวม</button><button data-admin-action="revenue">฿ รายได้ & Settlement</button><button data-admin-action="tracking">☂ Umbrella tracking</button><button data-admin-action="feed">↵ Return live feed</button><button data-admin-action="rebalancing">⇄ Rebalancing</button><button data-admin-action="sensors">◌ Sensor health</button><button data-admin-action="settings">⚙ ตั้งค่า</button><small>ข้อมูลทั้งหมดเป็นข้อมูลจำลอง<br>v0.1 · Bangkok Demo</small></aside>
+      <div class="dash-main"><div class="dash-head"><div><p class="eyebrow">OPERATIONS / TODAY</p><h2>สวัสดี, ทีมปฏิบัติการ</h2></div><button id="reconcile">⟳ Run reconciliation</button></div>
+        <div class="metrics"><article><span>ร่มพร้อมใช้</span><b id="readyCount">248</b><small class="up">↑ 12 วันนี้</small></article><article><span>กำลังยืม</span><b id="activeCount">62</b><small>24 สถานี</small></article><article><span>คืนร่มวันนี้</span><b id="returnedCount">184</b><small class="up">96.7% auto-confirmed</small></article><article><span>ต้องดำเนินการ</span><b id="actionCount" class="warn">3</b><small>1 payment · 2 inventory</small></article></div>
+        <section id="revenuePanel" class="revenue-panel">
+          <div class="revenue-head"><div><p class="eyebrow">FINANCIAL OPERATIONS</p><h3>รายได้ & Settlement</h3><small id="revenueUpdated">อัปเดตล่าสุด วันนี้ 21:20</small></div><div><select id="revenuePeriod" aria-label="ช่วงเวลารายได้"><option value="today">วันนี้</option><option value="7d">7 วันล่าสุด</option><option value="30d">30 วันล่าสุด</option></select><button id="exportRevenue">⇩ Export CSV</button><button id="settleRevenue">✓ Run settlement</button></div></div>
+          <div class="revenue-kpis"><article><span>รายได้รวม</span><b id="grossRevenue">฿8,420</b><small class="up">↑ 14.2% จากช่วงก่อน</small></article><article><span>Net revenue</span><b id="netRevenue">฿7,986</b><small>หลังหัก Payment fee</small></article><article><span>Rental transactions</span><b id="transactionCount">184</b><small>เฉลี่ย ฿45.76 / ครั้ง</small></article><article><span>รอ Settlement</span><b id="pendingRevenue">฿1,240</b><small id="settlementStatus" class="attention">12 transactions</small></article></div>
+          <div class="revenue-visuals">
+            <article class="revenue-chart-card"><div class="section-title"><div><h3>Revenue trend</h3><small>Gross revenue · THB</small></div><b id="chartTotal">฿8.4K</b></div><div id="revenueChart" class="revenue-chart"><span style="height:38%" data-value="820"><i>จ.</i></span><span style="height:52%" data-value="1120"><i>อ.</i></span><span style="height:46%" data-value="980"><i>พ.</i></span><span style="height:68%" data-value="1450"><i>พฤ.</i></span><span style="height:57%" data-value="1210"><i>ศ.</i></span><span style="height:82%" data-value="1740"><i>ส.</i></span><span style="height:71%" data-value="1510"><i>อา.</i></span></div></article>
+            <article class="channel-card"><div class="section-title"><div><h3>Payment channels</h3><small>สัดส่วนรายได้วันนี้</small></div><b>100%</b></div><div class="channel-donut"><div><b>฿8.4K</b><small>TOTAL</small></div></div><ul><li><i class="wallet"></i><span>RǪM Wallet</span><b>52%</b><small>฿4,378</small></li><li><i class="promptpay"></i><span>PromptPay</span><b>31%</b><small>฿2,610</small></li><li><i class="card"></i><span>Card</span><b>17%</b><small>฿1,432</small></li></ul></article>
+          </div>
+          <article class="transactions-panel"><div class="transaction-head"><div><h3>ธุรกรรมล่าสุด</h3><span id="visibleTransactionCount">5 รายการ</span></div><div class="payment-filters"><button class="active" data-revenue-filter="all">ทั้งหมด</button><button data-revenue-filter="wallet">Wallet</button><button data-revenue-filter="promptpay">PromptPay</button><button data-revenue-filter="card">Card</button></div></div>
+            <div class="finance-table"><div class="finance-row finance-header"><span>Transaction</span><span>สถานี</span><span>ช่องทาง</span><span>ยอด</span><span>สถานะ</span><span></span></div>
+              <div class="finance-row" data-payment-channel="wallet"><span><b>TXN-84201</b><small>21:14 · UMB-BL-0142</small></span><span>อโศก K-01</span><span><i class="pay-badge wallet">W</i> Wallet</span><strong>฿20</strong><em>✓ Settled</em><button data-transaction-detail="TXN-84201">ดู</button></div>
+              <div class="finance-row" data-payment-channel="promptpay"><span><b>TXN-84200</b><small>20:58 · Daily Pass</small></span><span>สยาม K-02</span><span><i class="pay-badge promptpay">P</i> PromptPay</span><strong>฿49</strong><em>✓ Settled</em><button data-transaction-detail="TXN-84200">ดู</button></div>
+              <div class="finance-row" data-payment-channel="card"><span><b>TXN-84199</b><small>20:41 · UMB-NV-0307</small></span><span>นานา K-01</span><span><i class="pay-badge card">C</i> Card</span><strong>฿60</strong><em class="pending">◷ Pending</em><button data-transaction-detail="TXN-84199">ดู</button></div>
+              <div class="finance-row" data-payment-channel="wallet"><span><b>TXN-84198</b><small>20:26 · UMB-CR-0218</small></span><span>อโศก K-01</span><span><i class="pay-badge wallet">W</i> Wallet</span><strong>฿30</strong><em>✓ Settled</em><button data-transaction-detail="TXN-84198">ดู</button></div>
+              <div class="finance-row" data-payment-channel="promptpay"><span><b>TXN-84197</b><small>20:09 · Wallet top-up</small></span><span>Mobile App</span><span><i class="pay-badge promptpay">P</i> PromptPay</span><strong>฿200</strong><em>✓ Settled</em><button data-transaction-detail="TXN-84197">ดู</button></div>
+            </div>
+          </article>
+        </section>
+        <div class="dash-grid"><section class="panel flow"><div class="section-title"><h3>Return live feed</h3><span class="live">● LIVE</span></div><div id="feed"><div><i>14:31</i><b>UMB-BL-0142</b><span>สยาม · K-02 · ฿20 captured</span><em>✓ Complete</em></div><div><i>14:28</i><b>UMB-YL-0091</b><span>อโศก · K-01 · offline synced</span><em>✓ Complete</em></div><div><i>14:24</i><b>UMB-BK-0304</b><span>หมอชิต · K-03 · capture pending</span><em class="attention">! Review</em></div></div></section>
+        <section class="panel"><div class="section-title"><h3>Demand & weather</h3><button class="plain" data-toast="Forecast mock: ฝนใน 12 นาที · 78% · confidence 85%">รายละเอียด</button></div><div class="chart"><span style="height:36%"></span><span style="height:55%"></span><span style="height:43%"></span><span style="height:72%"></span><span style="height:94%"></span><span style="height:78%"></span><span style="height:62%"></span></div><p class="forecast">☁ ฝนอาจตกใน 12 นาที · 78% · confidence 85%</p></section>
+        <section class="panel track"><div class="section-title"><h3>Umbrella tracking</h3><input id="trackSearch" placeholder="ค้นหา Umbrella ID" aria-label="ค้นหา Umbrella ID"></div><div class="tracked"><span class="umbrella">☂</span><div><b>UMB-BL-0142</b><small>Standard · Blue · Tag health: good</small></div><span>สยาม K-02<br><small>Returned 14:31</small></span></div></section>
+        <section id="rebalancePanel" class="panel"><h3>Rebalancing suggested</h3><p class="muted">อโศกมีร่มไหลออกสูงกว่าปกติจากพยากรณ์ฝน</p><div class="rebalance"><b>อโศก → สยาม</b><span>ย้าย 8 คัน</span><button data-toast="สร้างงาน Rebalance RB-2026-008 สำเร็จ (mock)">สร้างงาน</button></div></section></div>
+      </div>
+    </section>
+  </main><div id="modal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><button id="closeModal" class="close" aria-label="ปิด">×</button><h2 id="modalTitle">จองร่มสำเร็จ</h2><div id="modalContent"></div></div></div><div id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js?v=20260728a1"></script>
+</body></html>
