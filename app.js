@@ -1,4 +1,4 @@
-const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);let reservation=false,rental=false;
+const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);let reservation=false,rental=false,pickupTimer=null,pickupDeadline=0;
 function go(id){const overlay=$('#modal');if(overlay)overlay.hidden=true;$$('.screen').forEach(x=>x.classList.remove('active'));$('#'+id).classList.add('active');location.hash=id;window.scrollTo(0,0)}
 $$('[data-go]').forEach(b=>b.onclick=()=>go(b.dataset.go));
 function toast(text){const t=$('#toast');t.textContent=text;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800)}
@@ -9,16 +9,25 @@ const umbrellaCatalog=[
   {id:'sky',icon:'☂',name:'RǪM Standard',type:'Standard',color:'สีฟ้า',fee:'ฟรี',note:'ฟรี 30 นาทีแรก',stock:18,umbrella:'UMB-ST-0142',locker:'07',tone:'sky'}
 ];
 function openUmbrellaCatalog(){
-  modal('สแกน QR ที่ตู้ '+selectedStation.locker,'<div class="umbrella-catalog"><div class="catalog-head"><span>'+selectedStation.name+'</span><b>ร่ม Standard พร้อมให้ยืม</b><small>ตู้มีร่มแบบเดียว ไม่ต้องเลือกรุ่น</small></div><div class="qr" style="margin:16px auto">▦▦<br>▦▦</div><div class="catalog-summary"><span><small>ขั้นตอนต่อไป</small><b>สแกน QR บนตู้จริง</b></span><strong>ฟรี 30 นาทีแรก</strong></div><button id="confirmUmbrella" class="catalog-confirm" data-selected="sky">จำลองสแกนสำเร็จ · รับร่ม <span>→</span></button><p class="catalog-note">Demo only · ไม่มีการเรียกเก็บเงินจริง</p></div>');
-  $('#confirmUmbrella').onclick=()=>confirmUmbrellaReservation('sky');
+  const payments=[['paotang','เป๋าตังค์','ผูกแอปเป๋าตังค์ กรุงไทย','▣'],['card','บัตรเครดิต / เดบิต','Visa · Mastercard · JCB','▤'],['qr','QR Payment','สแกนจ่ายจาก Mobile Banking ทุกธนาคาร','▦']];
+  const choices=payments.map((p,i)=>'<button class="payment-method '+p[0]+' '+(!i?'selected':'')+'" data-payment="'+p[0]+'"><i>'+p[3]+'</i><span><b>'+p[1]+'</b><small>'+p[2]+'</small></span><strong>'+(!i?'✓':'')+'</strong></button>').join('');
+  modal('เลือกวิธีชำระเงิน','<div class="umbrella-catalog"><div class="catalog-head"><span>'+selectedStation.name+' · ตู้ '+selectedStation.locker+'</span><b>เช่าร่ม RǪM Standard</b><small>ฟรี 30 นาทีแรก · ตู้มีร่มแบบเดียว พร้อมรับทันที</small></div><div class="payment-methods">'+choices+'</div><button id="confirmUmbrella" class="catalog-confirm">ชำระเงินและจองร่ม <span>→</span></button><p class="catalog-note">Demo payment only · ไม่มีการเรียกเก็บเงินจริง</p></div>');
+  let selectedPayment='paotang';
+  $$('[data-payment]').forEach(button=>button.onclick=()=>{selectedPayment=button.dataset.payment;$$('.payment-method').forEach(x=>{const active=x===button,check=x.querySelector('strong');x.classList.toggle('selected',active);if(check)check.textContent=active?'✓':''})});
+  $('#confirmUmbrella').onclick=()=>confirmUmbrellaReservation('sky',selectedPayment);
 }
-function confirmUmbrellaReservation(id){
+function paymentName(payment){return{paotang:'เป๋าตังค์ กรุงไทย',card:'บัตรเครดิต / เดบิต',qr:'QR Payment'}[payment]||'QR Payment'}
+function formatPickupCountdown(){const seconds=Math.max(0,Math.ceil((pickupDeadline-Date.now())/1000)),mins=Math.floor(seconds/60),secs=String(seconds%60).padStart(2,'0');return mins+':'+secs}
+function updatePickupCountdown(){const el=$('#pickupCountdown');if(!el)return;const left=formatPickupCountdown();el.textContent=left;if(left==='0:00'){clearInterval(pickupTimer);$('#instantUserPickup').disabled=true;$('#instantUserPickup').textContent='หมดเวลารับร่ม';toast('Reservation หมดเวลาแล้ว')}}
+function confirmUmbrellaReservation(id,payment){
   const item=umbrellaCatalog.find(x=>x.id===id)||umbrellaCatalog[0];
-  reservation=true;
-  $('#userState').innerHTML='<b>Reserved · '+item.name+'</b><p>'+item.umbrella+' · '+item.color+' · ตู้ '+selectedStation.locker+' ช่อง '+item.locker+' · เหลือเวลา 29:59</p><button id="showQr" class="scan">แสดง QR รับร่ม</button>';
+  reservation=true;pickupDeadline=Date.now()+5*60*1000;clearInterval(pickupTimer);
+  $('#userState').innerHTML='<b>จองร่มสำเร็จ · '+item.name+'</b><p>'+paymentName(payment)+' · '+item.umbrella+' · ตู้ '+selectedStation.locker+' ช่อง '+item.locker+'</p><div class="pickup-countdown"><i>◷</i><span><b>รับร่มภายใน <strong id="pickupCountdown">5:00</strong> นาที</b><small>ไปที่ตู้แล้วกดรับร่มทันทีได้เลย</small></span></div><button id="instantUserPickup" class="instant-user-pickup">☂ รับร่มทันที</button><button id="showQr" class="scan">แสดง QR รับร่ม</button>';
+  pickupTimer=setInterval(updatePickupCountdown,1000);updatePickupCountdown();
   $('#showQr').onclick=()=>modal('QR สำหรับรับร่มเท่านั้น','<div class="qr">▦▦<br>▦▦</div><div class="success"><strong>Locker '+selectedStation.locker+' · ช่อง '+item.locker+'</strong>'+item.name+' · '+item.umbrella+'<br>Token จำลองหมดอายุใน 29:59</div>');
-  modal('จองร่มสำเร็จ','<div class="booking-success"><span class="booking-check">✓</span><p>ระบบกันร่มให้คุณแล้ว</p><h3>'+item.name+'</h3><small>'+item.color+' · '+item.umbrella+'</small><div><span>จุดรับ<strong>'+selectedStation.name+' · ตู้ '+selectedStation.locker+'</strong></span><span>ช่องรับ<strong>'+item.locker+'</strong></span><span>ค่าบริการ<strong>'+item.fee+'</strong></span></div><button id="bookingQr" class="catalog-confirm">ดู QR รับร่ม <span>→</span></button></div>');
-  $('#bookingQr').onclick=()=>$('#showQr').click();
+  $('#instantUserPickup').onclick=()=>{go('kiosk');setTimeout(()=>dispenseUmbrella(),150);toast('กำลังเปิดช่อง 07 เพื่อรับร่ม')};
+  modal('จองร่มสำเร็จ','<div class="booking-success"><span class="booking-check">✓</span><p>ชำระผ่าน '+paymentName(payment)+' สำเร็จ</p><h3>'+item.name+'</h3><small>รับได้ภายใน 5 นาที · '+item.umbrella+'</small><div><span>จุดรับ<strong>'+selectedStation.name+' · ตู้ '+selectedStation.locker+'</strong></span><span>ช่องรับ<strong>'+item.locker+'</strong></span><span>ค่าบริการ<strong>'+item.fee+'</strong></span></div><button id="bookingQr" class="catalog-confirm">รับร่มทันที <span>→</span></button></div>');
+  $('#bookingQr').onclick=()=>$('#instantUserPickup').click();
   toast('จองสำเร็จ: '+item.name+' ถูกกันไว้ให้แล้ว');
 }
 $('#reserveBtn').onclick=openUmbrellaCatalog;
@@ -94,6 +103,7 @@ $$('[data-action]').forEach(button=>button.onclick=()=>{
   log(actions[action]||action);
 });
 $('#scanBtn').onclick=verifyPickup;
+$('#instantPickupBtn').onclick=()=>{if(Number($('#kioskStock').textContent)<=0){toast('ขณะนี้ร่มหมด');return}dispenseUmbrella();toast('เปิดช่อง 07 แล้ว · กรุณารับร่ม')};
 $('#collectBtn').onclick=dispenseUmbrella;
 $('#returnBtn').onclick=startKioskReturn;
 $('#returnBay').onclick=startKioskReturn;
