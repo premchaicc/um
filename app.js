@@ -26,7 +26,7 @@ function confirmUmbrellaReservation(id,payment){
   pickupTimer=setInterval(updatePickupCountdown,1000);updatePickupCountdown();
   $('#showQr').onclick=()=>modal('QR สำหรับรับร่มเท่านั้น','<div class="qr">▦▦<br>▦▦</div><div class="success"><strong>Locker '+selectedStation.locker+' · ช่อง '+item.locker+'</strong>'+item.name+' · '+item.umbrella+'<br>Token จำลองหมดอายุใน 29:59</div>');
   $('#instantUserPickup').onclick=()=>{go('kiosk');setTimeout(()=>dispenseUmbrella(),150);toast('กำลังเปิดช่อง 07 เพื่อรับร่ม')};
-  modal('จองร่มสำเร็จ','<div class="booking-success"><span class="booking-check">✓</span><p>ชำระผ่าน '+paymentName(payment)+' สำเร็จ</p><h3>'+item.name+'</h3><small>รับได้ภายใน 5 นาที · '+item.umbrella+'</small><div><span>จุดรับ<strong>'+selectedStation.name+' · ตู้ '+selectedStation.locker+'</strong></span><span>ช่องรับ<strong>'+item.locker+'</strong></span><span>ค่าบริการ<strong>'+item.fee+'</strong></span></div><button id="bookingQr" class="catalog-confirm">รับร่มทันที <span>→</span></button></div>');
+  modal('จองสำเร็จ!','<div class="booking-success playful-success"><span class="booking-check">✓</span><p>'+paymentName(payment)+' · สำเร็จ</p><h3>พร้อมรับร่ม</h3><small>'+selectedStation.name+' · ภายใน 5 นาที</small><button id="bookingQr" class="catalog-confirm">☂ รับร่ม <span>→</span></button></div>');
   $('#bookingQr').onclick=()=>$('#instantUserPickup').click();
   toast('จองสำเร็จ: '+item.name+' ถูกกันไว้ให้แล้ว');
 }
@@ -142,14 +142,14 @@ function selectStation(id){
   $$('[data-map-select]').forEach(pin=>pin.classList.toggle('active',pin.dataset.mapSelect===id));
   Object.entries(romMarkers).forEach(([key,marker])=>marker.getElement()?.querySelector('.rom-map-marker')?.classList.toggle('active',key===id));
   const reserveLabel=$('#reserveAtStation');if(reserveLabel)reserveLabel.innerHTML='เลือก'+selectedStation.name.split(' · ')[0]+'และเช่าร่ม <span>→</span>';
-  const mapName=$('#mapStationName'),mapMeta=$('#mapStationMeta');if(mapName)mapName.textContent=selectedStation.name;if(mapMeta)mapMeta.textContent='ตู้ '+selectedStation.locker+' · พร้อมใช้งาน '+selectedStation.stock+' คัน · 2 นาที';
+  const mapName=$('#mapStationName'),mapMeta=$('#mapStationMeta');if(mapName)mapName.textContent=selectedStation.name;if(mapMeta)mapMeta.textContent=selectedStation.stock+' คัน · 2 นาที';
   toast('เลือกสถานี '+selectedStation.name+' แล้ว');
 }
 $$('[data-station-select], [data-station-pin], [data-map-select]').forEach(button=>button.onclick=()=>selectStation(button.dataset.stationSelect||button.dataset.stationPin||button.dataset.mapSelect));
 function initRealMap(){
   const target=$('#realMap');if(!target||!window.L)return;
   const map=L.map(target,{zoomControl:false,attributionControl:true}).setView([13.7394,100.5523],15);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'}).addTo(map);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',{maxZoom:19,subdomains:'abcd',attribution:'© OpenStreetMap · © CARTO'}).addTo(map);
   const coordinates={asok:[13.7367,100.5605],siam:[13.7439,100.5490],nana:[13.7406,100.5553]};
   Object.entries(coordinates).forEach(([id,latlng])=>{const item=stationData[id],icon=L.divIcon({className:'rom-leaflet-icon',html:'<div class="rom-map-marker '+(id==='asok'?'active':'')+'" data-stock="'+item.stock+'"><span>ϟ</span></div>',iconSize:[42,42],iconAnchor:[21,42]});romMarkers[id]=L.marker(latlng,{icon,title:item.name}).addTo(map).on('click',()=>selectStation(id))});
   L.circleMarker([13.7388,100.5501],{radius:9,color:'#fff',weight:4,fillColor:'#2478e6',fillOpacity:1}).addTo(map).bindTooltip('ตำแหน่งของคุณ',{permanent:false});
