@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#63838b"><title>RǪM — Smart Umbrella Network</title>
-<link rel="stylesheet" href="app.css?v=20260728"><link rel="stylesheet" href="route.css?v=20260813a1">
+<link rel="stylesheet" href="app.css?v=20260728"><link rel="stylesheet" href="route.css?v=20260814a1"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 </head>
 <body>
   <div id="weatherBgA" class="weather-bg is-visible" aria-hidden="true"></div><div id="weatherBgB" class="weather-bg" aria-hidden="true"></div>
@@ -37,14 +37,8 @@
           <button id="mapGift" class="map-round-btn" aria-label="สิทธิพิเศษ">🎁</button>
         </header>
         <div class="map-rent-canvas" role="application" aria-label="แผนที่ตู้ร่ม">
-          <div class="map-road road-one"></div><div class="map-road road-two"></div><div class="map-road road-three"></div>
-          <span class="map-road-label label-one">ถนนสุขุมวิท</span><span class="map-road-label label-two">อโศกมนตรี</span>
-          <span class="map-park park-one">สวนเบญจกิติ</span><span class="map-park park-two">Terminal 21</span>
+          <div id="realMap" aria-label="แผนที่ถนนกรุงเทพฯ"></div>
           <section class="map-ad" aria-label="โปรโมชั่น"><span>☂</span><div><b>เช่าร่มวันนี้</b><small>ฟรี 30 นาทีแรก</small></div><i>›</i></section>
-          <button class="map-rent-pin active" data-map-select="asok" aria-label="เลือกตู้ อโศก Exit 4"><span>ϟ</span><i>18</i></button>
-          <button class="map-rent-pin pin-east" data-map-select="siam" aria-label="เลือกตู้ สยามสแควร์"><span>ϟ</span><i>11</i></button>
-          <button class="map-rent-pin pin-south" data-map-select="nana" aria-label="เลือกตู้ นานา"><span>ϟ</span><i>7</i></button>
-          <span class="map-you-dot" aria-label="ตำแหน่งของคุณ">●</span>
           <div class="map-tool-stack"><button id="mapSearch" aria-label="ค้นหาสถานี">⌕</button><button id="mapLocate" aria-label="ตำแหน่งของฉัน">◎</button><button id="mapHelp" aria-label="ช่วยเหลือ">◖</button></div>
         </div>
         <section id="mapStationSheet" class="map-station-sheet" aria-live="polite">
@@ -151,5 +145,5 @@
       </div>
     </section>
   </main><div id="modal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><button id="closeModal" class="close" aria-label="ปิด">×</button><h2 id="modalTitle">จองร่มสำเร็จ</h2><div id="modalContent"></div></div></div><div id="toast" role="status" aria-live="polite"></div>
-<script src="app.js?v=20260813b1"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script><script src="app.js?v=20260814a2"></script>
 </body></html>
