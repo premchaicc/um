@@ -133,17 +133,29 @@ function switchUserView(action){
 $$('[data-bottom-action]').forEach(button=>button.onclick=()=>switchUserView(button.dataset.bottomAction));
 $$('[data-open-user-view]').forEach(button=>button.onclick=()=>switchUserView(button.dataset.openUserView));
 let selectedStation={id:'asok',name:'อโศก · Exit 4',locker:'A-04',stock:18};
-const stationData={asok:{id:'asok',name:'อโศก · Exit 4',locker:'A-04',stock:18},siam:{id:'siam',name:'สยาม · ทางออก 2',locker:'S-02',stock:11},nana:{id:'nana',name:'นานา · Exit 1',locker:'N-01',stock:7}};
-$$('[data-station-select], [data-station-pin], [data-map-select]').forEach(button=>button.onclick=()=>{
-  const id=button.dataset.stationSelect||button.dataset.stationPin||button.dataset.mapSelect;
+const stationData={asok:{id:'asok',name:'อโศก · Exit 4',locker:'A-04',stock:18},siam:{id:'siam',name:'เพลินจิต · Exit 5',locker:'P-05',stock:11},nana:{id:'nana',name:'นานา · Exit 1',locker:'N-01',stock:7}};
+let romMarkers={};
+function selectStation(id){
   selectedStation=stationData[id];
   $$('[data-station-select]').forEach(card=>card.classList.toggle('selected',card.dataset.stationSelect===id));
   $$('[data-station-pin]').forEach(pin=>pin.classList.toggle('active',pin.dataset.stationPin===id));
   $$('[data-map-select]').forEach(pin=>pin.classList.toggle('active',pin.dataset.mapSelect===id));
+  Object.entries(romMarkers).forEach(([key,marker])=>marker.getElement()?.querySelector('.rom-map-marker')?.classList.toggle('active',key===id));
   const reserveLabel=$('#reserveAtStation');if(reserveLabel)reserveLabel.innerHTML='เลือก'+selectedStation.name.split(' · ')[0]+'และเช่าร่ม <span>→</span>';
   const mapName=$('#mapStationName'),mapMeta=$('#mapStationMeta');if(mapName)mapName.textContent=selectedStation.name;if(mapMeta)mapMeta.textContent='ตู้ '+selectedStation.locker+' · พร้อมใช้งาน '+selectedStation.stock+' คัน · 2 นาที';
   toast('เลือกสถานี '+selectedStation.name+' แล้ว');
-});
+}
+$$('[data-station-select], [data-station-pin], [data-map-select]').forEach(button=>button.onclick=()=>selectStation(button.dataset.stationSelect||button.dataset.stationPin||button.dataset.mapSelect));
+function initRealMap(){
+  const target=$('#realMap');if(!target||!window.L)return;
+  const map=L.map(target,{zoomControl:false,attributionControl:true}).setView([13.7394,100.5523],15);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'}).addTo(map);
+  const coordinates={asok:[13.7367,100.5605],siam:[13.7439,100.5490],nana:[13.7406,100.5553]};
+  Object.entries(coordinates).forEach(([id,latlng])=>{const item=stationData[id],icon=L.divIcon({className:'rom-leaflet-icon',html:'<div class="rom-map-marker '+(id==='asok'?'active':'')+'" data-stock="'+item.stock+'"><span>ϟ</span></div>',iconSize:[42,42],iconAnchor:[21,42]});romMarkers[id]=L.marker(latlng,{icon,title:item.name}).addTo(map).on('click',()=>selectStation(id))});
+  L.circleMarker([13.7388,100.5501],{radius:9,color:'#fff',weight:4,fillColor:'#2478e6',fillOpacity:1}).addTo(map).bindTooltip('ตำแหน่งของคุณ',{permanent:false});
+  setTimeout(()=>{map.invalidateSize();map.fitBounds(Object.values(coordinates),{padding:[44,44],maxZoom:15})},150);
+}
+initRealMap();
 const reserveAtStation=$('#reserveAtStation');if(reserveAtStation)reserveAtStation.onclick=()=>{
   $('#homeStationName').textContent=selectedStation.name;
   $('#stationStock').textContent='ตู้ '+selectedStation.locker+' · พร้อมยืม '+selectedStation.stock+' คัน';
@@ -151,7 +163,7 @@ const reserveAtStation=$('#reserveAtStation');if(reserveAtStation)reserveAtStati
 };
 const mapRentBtn=$('#mapRentBtn');if(mapRentBtn)mapRentBtn.onclick=openUmbrellaCatalog;
 const mapSearch=$('#mapSearch');if(mapSearch)mapSearch.onclick=()=>switchUserView('stations');
-const mapLocate=$('#mapLocate');if(mapLocate)mapLocate.onclick=()=>{document.querySelector('[data-map-select="asok"]')?.click();toast('แสดงตู้ร่มใกล้ตำแหน่งคุณแล้ว')};
+const mapLocate=$('#mapLocate');if(mapLocate)mapLocate.onclick=()=>{selectStation('asok');toast('แสดงตู้ร่มใกล้ตำแหน่งคุณแล้ว')};
 const mapHelp=$('#mapHelp');if(mapHelp)mapHelp.onclick=()=>modal('เช่าร่มอย่างไร','<div class="success"><strong>1. แตะหมุดตู้บนแผนที่</strong><br>2. กดสแกนเพื่อเช่าร่ม<br>3. สแกน QR ที่ตู้และรับ RǪM Standard</div>');
 const mapGift=$('#mapGift');if(mapGift)mapGift.onclick=()=>modal('สิทธิพิเศษวันนี้','<div class="success"><strong>ฟรี 30 นาทีแรก</strong><br>เช่าร่ม Standard จากตู้ใดก็ได้ใกล้คุณ</div>');
 function applyTopup(amount){
