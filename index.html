@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#63838b"><title>RǪM — Smart Umbrella Network</title>
-<link rel="stylesheet" href="app.css?v=20260728"><link rel="stylesheet" href="route.css?v=20260814a2"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Mali:wght@400;500;600;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="app.css?v=20260728"><link rel="stylesheet" href="route.css?v=20260814a3"><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 </head>
 <body>
   <div id="weatherBgA" class="weather-bg is-visible" aria-hidden="true"></div><div id="weatherBgB" class="weather-bg" aria-hidden="true"></div>
@@ -33,19 +33,17 @@
     <div class="user-view active" data-user-view="home">
       <section class="map-rent-home" aria-label="แผนที่ค้นหาตู้ร่ม">
         <header class="map-rent-topbar">
-          <div><span>สวัสดี, คุณทอย น่ารัก</span><strong>ตู้ร่มใกล้คุณ</strong></div>
+          <div><span>RǪM around you</span><strong>ใกล้คุณ</strong></div>
           <button id="mapGift" class="map-round-btn" aria-label="สิทธิพิเศษ">🎁</button>
         </header>
         <div class="map-rent-canvas" role="application" aria-label="แผนที่ตู้ร่ม">
           <div id="realMap" aria-label="แผนที่ถนนกรุงเทพฯ"></div>
-          <section class="map-ad" aria-label="โปรโมชั่น"><span>☂</span><div><b>เช่าร่มวันนี้</b><small>ฟรี 30 นาทีแรก</small></div><i>›</i></section>
-          <div class="map-tool-stack"><button id="mapSearch" aria-label="ค้นหาสถานี">⌕</button><button id="mapLocate" aria-label="ตำแหน่งของฉัน">◎</button><button id="mapHelp" aria-label="ช่วยเหลือ">◖</button></div>
+          <div class="map-tool-stack"><button id="mapSearch" aria-label="ค้นหาสถานี">⌕</button><button id="mapLocate" aria-label="ตำแหน่งของฉัน">◎</button></div>
         </div>
         <section id="mapStationSheet" class="map-station-sheet" aria-live="polite">
-          <div class="map-sheet-icon">☂</div><div class="map-sheet-copy"><small>ตู้ที่เลือก</small><strong id="mapStationName">อโศก · Exit 4</strong><span id="mapStationMeta">ตู้ A-04 · พร้อมใช้งาน 18 คัน · 2 นาที</span></div>
-          <button id="mapRentBtn" class="map-rent-action">▣&nbsp; สแกนเพื่อเช่าร่ม</button>
+          <div class="map-sheet-icon">☂</div><div class="map-sheet-copy"><strong id="mapStationName">อโศก · Exit 4</strong><span id="mapStationMeta">18 คัน · 2 นาที</span></div>
+          <button id="mapRentBtn" class="map-rent-action"><span>▣</span> เช่าเลย</button>
         </section>
-        <p class="standard-umbrella-note">ร่ม Standard แบบเดียว · เลือกตู้แล้วสแกนเพื่อรับร่มได้ทันที</p>
       </section>
           <div class="weather"><span>อโศก · Exit 4</span><b id="userWeatherEta">ฝนใน 12 นาที</b><small>29°C · ความชื้น 82% · ความมั่นใจ 85%</small></div>
           <h2>สวัสดี, คุณทอย น่ารัก <span>☀</span></h2><p class="muted">พร้อมเดินทางแบบไม่กลัวฝน</p>
@@ -145,5 +143,5 @@
       </div>
     </section>
   </main><div id="modal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><button id="closeModal" class="close" aria-label="ปิด">×</button><h2 id="modalTitle">จองร่มสำเร็จ</h2><div id="modalContent"></div></div></div><div id="toast" role="status" aria-live="polite"></div>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script><script src="app.js?v=20260814a3"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script><script src="app.js?v=20260814a4"></script>
 </body></html>
