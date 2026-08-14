@@ -101,7 +101,7 @@ body{position:relative;isolation:isolate;background:#f6f4ef;transition:backgroun
 @media(max-width:620px){.revenue-panel{padding:14px}.revenue-head{display:grid}.revenue-head>div:last-child{display:grid;grid-template-columns:1fr 1fr}.revenue-head select{grid-column:1/-1}.revenue-kpis{grid-template-columns:1fr 1fr}.channel-card{grid-template-columns:100px 1fr}.transaction-head{display:grid;gap:10px}.payment-filters{overflow:auto}.finance-table{overflow:auto}.finance-row{min-width:620px}}
 
 /* Clean playful user experience */
-body:has(#user:target){font-family:"Biski","Mali","Fredoka",sans-serif;background:#fff}
+body:has(#user:target){font-family:"Fredoka","Mali",sans-serif;background:#fff}
 #user:target .phone-nav{border:0!important;font-family:"Fredoka","Mali",sans-serif}
 #user:target .member{display:none}
 #user:target .map-rent-home{position:relative;background:#fff;color:#202f32}
@@ -135,8 +135,14 @@ body:has(#user:target){font-family:"Biski","Mali","Fredoka",sans-serif;backgroun
 .playful-success{gap:6px;padding-top:4px}
 .playful-success .booking-check{width:64px;height:64px;border-radius:44% 56% 48% 52%;background:#dcf8ee;color:#08a78f;transform:rotate(-6deg)}
 .playful-success p{font-size:10px}
-.playful-success h3{font-family:"Biski","Mali","Fredoka",sans-serif;font-size:27px}
+.playful-success h3{font-family:"Fredoka","Mali",sans-serif;font-size:27px}
 .playful-success>small{font-size:12px}
 .playful-success>div{display:none}
 .playful-success .catalog-confirm{margin-top:18px;border-radius:18px 25px 17px 23px;background:#ff5f78;box-shadow:0 10px 24px rgba(255,95,120,.25)}
 @media(max-width:620px){#user:target .map-rent-canvas{height:calc(100dvh - 245px);min-height:420px}#user:target .map-station-sheet{margin-inline:12px}.modal-card:has(.playful-success){border-radius:28px 19px 30px 22px}}
+
+/* Prevent locally installed display fonts from breaking payment labels */
+.payment-method{overflow:hidden;font-family:"Fredoka","Mali",sans-serif;direction:ltr;unicode-bidi:isolate}
+.payment-method>span{min-width:0;overflow:hidden;line-height:1.35}
+.payment-method:focus{outline:0}
+.payment-method:focus-visible{outline:3px solid rgba(160,77,255,.28);outline-offset:2px}
